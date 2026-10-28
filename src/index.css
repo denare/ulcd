@@ -1,0 +1,220 @@
+/* ============================================================
+   ULCD — UniConnect Global Stylesheet
+   Design system with CSS custom properties and base styles
+   ============================================================ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   CSS Design Tokens
+   ============================================================ */
+@layer base {
+  :root {
+    /* Brand colors */
+    --color-brand-50: #eef6ff;
+    --color-brand-100: #daeafe;
+    --color-brand-500: #3a6df4;
+    --color-brand-600: #2450e9;
+    --color-brand-700: #1c3dd5;
+    --color-brand-900: #1c2f87;
+
+    /* Teal accent */
+    --color-teal-400: #2dd4cc;
+    --color-teal-500: #14b8b2;
+    --color-teal-600: #0d9491;
+
+    /* Surfaces */
+    --surface: #ffffff;
+    --surface-muted: #f8fafc;
+    --surface-subtle: #f1f5f9;
+
+    /* Text */
+    --text-primary: #0f172a;
+    --text-secondary: #334155;
+    --text-muted: #64748b;
+
+    /* Border */
+    --border: #e2e8f0;
+    --border-strong: #cbd5e1;
+
+    /* Radius */
+    --radius: 0.5rem;
+    --radius-sm: 0.375rem;
+    --radius-lg: 0.75rem;
+
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-base: 200ms ease;
+    --transition-slow: 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Base typography */
+  html {
+    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-feature-settings: 'cv11', 'ss01';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-surface text-text-primary text-sm leading-relaxed;
+    min-height: 100dvh;
+  }
+
+  /* Focus visible — accessible ring */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-600 rounded-sm;
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  /* Heading defaults */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-semibold text-text-primary leading-tight;
+  }
+
+  /* Link defaults */
+  a {
+    @apply text-brand-600 transition-colors duration-150;
+  }
+  a:hover {
+    @apply text-brand-700;
+  }
+
+  /* Smooth scrollbar */
+  * {
+    @apply box-border;
+  }
+  *::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  *::-webkit-scrollbar-track {
+    @apply bg-surface-subtle;
+  }
+  *::-webkit-scrollbar-thumb {
+    @apply bg-border-strong rounded-full;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    @apply bg-text-muted;
+  }
+}
+
+/* ============================================================
+   Component utilities
+   ============================================================ */
+@layer components {
+  /* Card */
+  .card {
+    @apply bg-white rounded-lg shadow-card border border-border;
+  }
+  .card-hover {
+    @apply transition-shadow duration-200 hover:shadow-card-hover;
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-brand-600 to-teal-500 bg-clip-text text-transparent;
+  }
+
+  /* Badge */
+  .badge {
+    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium;
+  }
+  .badge-blue {
+    @apply badge bg-brand-100 text-brand-700;
+  }
+  .badge-green {
+    @apply badge bg-success-light text-success;
+  }
+  .badge-yellow {
+    @apply badge bg-warning-light text-warning;
+  }
+  .badge-red {
+    @apply badge bg-danger-light text-danger;
+  }
+  .badge-gray {
+    @apply badge bg-surface-subtle text-text-muted;
+  }
+
+  /* Input base */
+  .input-base {
+    @apply w-full px-3 py-2 text-sm text-text-primary bg-white border border-border rounded-md
+           placeholder:text-text-placeholder
+           focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500
+           disabled:bg-surface-muted disabled:cursor-not-allowed
+           transition-colors duration-150;
+  }
+
+  /* Button base */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium rounded-md
+           transition-all duration-150 focus-visible:outline focus-visible:outline-2
+           focus-visible:outline-offset-2 focus-visible:outline-brand-600
+           disabled:opacity-50 disabled:cursor-not-allowed select-none;
+  }
+  .btn-primary {
+    @apply btn bg-brand-600 text-white hover:bg-brand-700 active:bg-brand-800 shadow-sm;
+  }
+  .btn-secondary {
+    @apply btn bg-white text-text-primary border border-border hover:bg-surface-subtle active:bg-surface shadow-sm;
+  }
+  .btn-ghost {
+    @apply btn bg-transparent text-text-secondary hover:bg-surface-subtle active:bg-surface-subtle;
+  }
+  .btn-danger {
+    @apply btn bg-danger text-white hover:bg-red-700 active:bg-red-800 shadow-sm;
+  }
+  .btn-sm {
+    @apply px-3 py-1.5 text-xs;
+  }
+  .btn-lg {
+    @apply px-6 py-3 text-base;
+  }
+
+  /* Section spacing */
+  .section {
+    @apply py-12 md:py-16;
+  }
+  .container-narrow {
+    @apply max-w-3xl mx-auto px-4 sm:px-6;
+  }
+  .container-wide {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+/* ============================================================
+   Utility overrides
+   ============================================================ */
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.2s ease-out;
+  }
+  .animate-slide-up {
+    animation: slideUp 0.2s ease-out;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}

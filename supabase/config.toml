@@ -1,0 +1,4 @@
+project_id = "ulcd"
+
+[functions.submit-correction-report]
+verify_jwt = true
